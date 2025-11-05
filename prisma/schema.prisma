@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum PlanType {
+  MONTHLY
+  LIFETIME
+  LOCAL
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  lastName  String?
+  phone     String?
+  password  String?
+  plan      PlanType? 
+  createdAt DateTime  @default(now())
+  licenses  License[]
+  devices   Device[]
+  notes     String?
+  active    Boolean   @default(true) 
+}
+
+
+model License {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  type       PlanType
+  token      String
+  machineId  String?
+  issuedBy   Int?
+  issuedAt   DateTime  @default(now())
+  expiresAt  DateTime?
+  revoked    Boolean   @default(false)
+  revokedAt  DateTime?
+  notes      String?
+  user       User      @relation(fields: [userId], references: [id])
+  lastReminderAt DateTime?
+}
+
+model Device {
+  id         Int       @id @default(autoincrement())
+  machineId  String    @unique
+  userId     Int?
+  firstSeen  DateTime  @default(now())
+  lastSeen   DateTime  @default(now())
+  info       String?
+  user       User?     @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id        Int       @id @default(autoincrement())
+  adminId   Int?
+  action    String
+  target    String?
+  details   String?
+  createdAt DateTime   @default(now())
+}

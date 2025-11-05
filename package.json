@@ -1,0 +1,33 @@
+{
+  "name": "license",
+  "version": "1.0.1",
+  "description": "\"Gestor de licencias\"",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Mariano Trogo",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.19",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.10",
+    "react-hot-toast": "^2.6.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.18.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.18.0"
+  }
+}
